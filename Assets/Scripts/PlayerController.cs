@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
 	public Transform shotSpawn;
 	public float fireRate;
 
-	private float nextFire; 
+	private float nextFire;
 
 	// Use this for initialization
 	void Start () 
@@ -23,9 +23,8 @@ public class PlayerController : MonoBehaviour {
 	{
 		var x = Input.GetAxis ("Horizontal");
 		var y = Input.GetAxis ("Vertical");
-
-		Walk (y);
-		Rotate (x);
+			
+		Walk (y, x);
 	}
 
 	void Update(){
@@ -38,7 +37,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	void Walk(float y)
+	void Walk(float y, float x)
 	{
 		anim.SetFloat ("VelY", y);
 		if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) {
@@ -47,6 +46,7 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.DownArrow) || Input.GetKey (KeyCode.S)) {
 			transform.Translate (-Vector3.forward * speed * Time.deltaTime);
 		}
+		Rotate (x);
 	}
 
 	void Rotate(float x){
@@ -56,6 +56,12 @@ public class PlayerController : MonoBehaviour {
 		}
 		if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.D)) {
 			transform.Rotate (Vector3.up, turnSpeed * Time.deltaTime);
+		}
+	}
+
+	void OnTriggerEnter(Collider other){
+		if (other.gameObject.name == "Eyes") {
+			other.transform.parent.GetComponent<EnemyMovement> ().checkSight ();
 		}
 	}
 }
