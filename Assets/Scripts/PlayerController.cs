@@ -58,10 +58,4 @@ public class PlayerController : MonoBehaviour {
 			transform.Rotate (Vector3.up, turnSpeed * Time.deltaTime);
 		}
 	}
-
-	void OnTriggerEnter(Collider other){
-		if (other.gameObject.name == "Eyes") {
-			other.transform.parent.GetComponent<EnemyMovement> ().checkSight ();
-		}
-	}
 }

@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Bolt.cs" />
      <Compile Include="Assets\Scripts\BoundaryControl.cs" />
      <Compile Include="Assets\Scripts\CameraControl.cs" />
+     <Compile Include="Assets\Scripts\EnemyHealth.cs" />
      <Compile Include="Assets\Scripts\EnemyManager.cs" />
      <Compile Include="Assets\Scripts\EnemyMovement.cs" />
      <Compile Include="Assets\Scripts\KilledByContact.cs" />

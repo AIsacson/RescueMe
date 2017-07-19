@@ -3,52 +3,55 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour {
 
-	public GameObject player;
+	Transform player;
 	NavMeshAgent nav;
-	public Transform eyes;
+	public GameObject enemy;
 	Animator anim;
 
-	private string state = "idle";
-	private bool alive = true;
+	public bool alive = true;
+	public int lives = 3;
 
 	void Awake () {
+		player = GameObject.FindGameObjectWithTag ("Player").transform;
 		anim = GetComponent<Animator> ();
 		nav = GetComponent<NavMeshAgent> ();
 	}
 
 	void Update () {
+
 		if (alive) {
-			if (state == "idle") {
-				Vector3 pos = Random.insideUnitSphere * 10f;
-				NavMeshHit navHit;
-				NavMesh.SamplePosition (transform.position + pos, out navHit, 10f, NavMesh.AllAreas);
-				nav.SetDestination (navHit.position);
-				state = "walk";
-			}
-			if (state == "walk") {
-				if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending) {
-					state = "idle";
-				}
-			}
-			if (state == "chase") {
-				nav.SetDestination (player.transform.position);
+			Vector3 randomPos = Random.insideUnitSphere * 10f;
+			NavMeshHit navHit;
+			NavMesh.SamplePosition (transform.position + randomPos, out navHit, 20f, NavMesh.AllAreas);
+			nav.SetDestination (navHit.position);
+
+			if (Vector3.Distance (player.position, enemy.transform.position) < 20f) {
+				nav.SetDestination (player.position);
 			}
 		}
 	}
 
-	public void checkSight(){
-		if (alive) {
-			RaycastHit rayHit;
-			if (Physics.Linecast (eyes.position, player.transform.position, out rayHit)) {
-				if (rayHit.collider.gameObject.name == "Player") {
-					if (state != "kill") {
-						state = "chase";
-						nav.speed = 4.5f;
-						anim.speed = 4.5f;
-						print ("chase");
-					}
-				}
-			}
+	void OnTriggerEnter(Collider other){
+		if (other.tag == "Boundary" || other.tag == "Player")
+			return;
+		Destroy (other.gameObject);
+		lives--;
+		if (lives > 0) {
+			GetHit ();
 		}
+		if (lives <= 0) {
+			Death (gameObject);
+		}
+	}
+
+	void Death(GameObject gameObj){
+		anim.SetTrigger ("EnemyDead");
+		nav.enabled = false;
+		alive = false;
+		Destroy (gameObj, 10.0f);
+	}
+
+	void GetHit(){
+		anim.SetTrigger ("EnemyHit");
 	}
 }
