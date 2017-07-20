@@ -28,7 +28,7 @@ public class EnemyMovement : MonoBehaviour {
 
 			if (Vector3.Distance (player.position, enemy.transform.position) < 20f) {
 				nav.speed = 3.5f;
-				anim.speed = 3f;
+				anim.speed = 1.5f;
 				nav.SetDestination (player.position);
 				anim.SetTrigger ("PlayerSpotted");
 			}
