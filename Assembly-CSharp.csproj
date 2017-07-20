@@ -46,6 +46,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\SMC Pack 1\Demo\Files\V_SMC_Camera.cs" />
+     <Compile Include="Assets\SMC Pack 1\Demo\Files\V_SMC_Handler.cs" />
+     <Compile Include="Assets\SMC Pack 1\Demo\Files\V_Text.cs" />
      <Compile Include="Assets\Scripts\Bolt.cs" />
      <Compile Include="Assets\Scripts\BoundaryControl.cs" />
      <Compile Include="Assets\Scripts\CameraControl.cs" />
@@ -54,6 +57,7 @@
      <Compile Include="Assets\Scripts\EnemyMovement.cs" />
      <Compile Include="Assets\Scripts\KilledByContact.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\PlayerHealth.cs" />
      <None Include="Assets\Modern Russian Assault Rifle\Notes.txt" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>

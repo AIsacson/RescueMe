@@ -20,13 +20,17 @@ public class EnemyMovement : MonoBehaviour {
 	void Update () {
 
 		if (alive) {
-			Vector3 randomPos = Random.insideUnitSphere * 10f;
+			Vector3 randomPos = Random.insideUnitSphere * 20f;
 			NavMeshHit navHit;
 			NavMesh.SamplePosition (transform.position + randomPos, out navHit, 20f, NavMesh.AllAreas);
 			nav.SetDestination (navHit.position);
+			anim.SetTrigger ("PlayerGone");
 
 			if (Vector3.Distance (player.position, enemy.transform.position) < 20f) {
+				nav.speed = 3.5f;
+				anim.speed = 3f;
 				nav.SetDestination (player.position);
+				anim.SetTrigger ("PlayerSpotted");
 			}
 		}
 	}
@@ -40,6 +44,8 @@ public class EnemyMovement : MonoBehaviour {
 			GetHit ();
 		}
 		if (lives <= 0) {
+			nav.speed = 0f;
+			anim.speed = 1f;
 			Death (gameObject);
 		}
 	}
