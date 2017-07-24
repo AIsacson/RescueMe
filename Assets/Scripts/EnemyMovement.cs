@@ -9,7 +9,7 @@ public class EnemyMovement : MonoBehaviour {
 	Animator anim;
 
 	public bool alive = true;
-	public int lives = 3;
+	public int lives = 4;
 
 	void Awake () {
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
@@ -36,7 +36,7 @@ public class EnemyMovement : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.tag == "Boundary" || other.tag == "Player")
+		if (other.tag == "Player")
 			return;
 		Destroy (other.gameObject);
 		lives--;

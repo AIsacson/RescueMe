@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Walk(float y, float x)
 	{
+		anim.speed = 0.7f;
 		anim.SetFloat ("VelY", y);
 		if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) {
 			transform.Translate (Vector3.forward * speed * Time.deltaTime);
