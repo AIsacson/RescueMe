@@ -3,17 +3,21 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour {
 
-	Transform player;
+	GameObject player;
 	NavMeshAgent nav;
+	PlayerHealth playerHP;
 	public GameObject enemy;
+
 	Animator anim;
 
 	public bool alive = true;
 	public int lives = 4;
 
+
 	void Awake () {
-		player = GameObject.FindGameObjectWithTag ("Player").transform;
-		anim = GetComponent<Animator> ();
+		player = GameObject.FindGameObjectWithTag ("Player");
+		playerHP = player.GetComponent<PlayerHealth> ();
+		anim = this.transform.GetComponent<Animator> ();
 		nav = GetComponent<NavMeshAgent> ();
 	}
 
@@ -26,11 +30,15 @@ public class EnemyMovement : MonoBehaviour {
 			nav.SetDestination (navHit.position);
 			anim.SetTrigger ("PlayerGone");
 
-			if (Vector3.Distance (player.position, enemy.transform.position) < 20f) {
-				nav.speed = 3.5f;
-				anim.speed = 1.5f;
-				nav.SetDestination (player.position);
+			if (Vector3.Distance (player.transform.position, enemy.transform.position) < 20f) {
+				nav.speed = 4.5f;
+				anim.speed = 2f;
+				nav.SetDestination (player.transform.position);
 				anim.SetTrigger ("PlayerSpotted");
+			}
+
+			if (playerHP.currentHealth <= 0) {
+				PlayerDies ();
 			}
 		}
 	}
@@ -59,5 +67,11 @@ public class EnemyMovement : MonoBehaviour {
 
 	void GetHit(){
 		anim.SetTrigger ("EnemyHit");
+	}
+
+	void PlayerDies(){
+		anim.SetTrigger ("PlayerDead");
+		anim.speed = 0f;
+		nav.speed = 0f;
 	}
 }

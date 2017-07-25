@@ -1,13 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerHealth.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="36" Column="40" />
-      <File FileName="Assets/Scripts/KilledByContact.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/EnemyMovement.cs" Line="31" Column="23" />
+      <File FileName="Assets/Scripts/EnemyMovement.cs" Line="35" Column="19" />
+      <File FileName="Assets/Scripts/PlayerHealth.cs" Line="25" Column="2" />
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="61" Column="3" />
       <File FileName="Assets/Scripts/BoundaryControl.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/EnemyHealth.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/PlayerHealth.cs" Line="9" Column="2" />
+      <File FileName="Assets/Scripts/EnemyAttack.cs" Line="50" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

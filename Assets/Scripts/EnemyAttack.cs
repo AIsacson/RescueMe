@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour {
 
-	public float timeBetweenAttacks = 0.5f;
+	public float timeBetweenAttacks = 1.5f;
 	public int attackDamage = 10;
 
 	GameObject player;
-	Animator anim;
 	PlayerHealth playerHP;
 	EnemyMovement enemyLives;
 	bool playerInRange;
@@ -17,7 +16,6 @@ public class EnemyAttack : MonoBehaviour {
 
 	void Awake(){
 		player = GameObject.FindGameObjectWithTag ("Player");
-		anim = GetComponent<Animator> ();
 		enemyLives = GetComponent<EnemyMovement> ();
 		playerHP = player.GetComponent<PlayerHealth> ();
 	}
@@ -39,10 +37,6 @@ public class EnemyAttack : MonoBehaviour {
 
 		if (timer >= timeBetweenAttacks && playerInRange && enemyLives.lives > 0) {
 			Attack();
-		}
-
-		if (playerHP.currentHealth <= 0) {
-			anim.SetTrigger("PlayerDead");
 		}
 	}
 

@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	private Animator anim;
 	public float speed;
 	public float turnSpeed;
 	public GameObject shot;
 	public Transform shotSpawn;
 	public float fireRate;
 
-	private float nextFire;
+	Animator anim;
+	float nextFire;
 
 	// Use this for initialization
 	void Start () 
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour {
 
 	void Walk(float y, float x)
 	{
-		anim.speed = 0.7f;
+		anim.speed = 0.9f;
 		anim.SetFloat ("VelY", y);
 		if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) {
 			transform.Translate (Vector3.forward * speed * Time.deltaTime);
