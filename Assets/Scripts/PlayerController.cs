@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour {
 	public GameObject shot;
 	public Transform shotSpawn;
 	public float fireRate;
+	AudioSource running;
+	AudioSource shooting;
 
 	Animator anim;
 	float nextFire;
@@ -16,6 +18,9 @@ public class PlayerController : MonoBehaviour {
 	void Start () 
 	{
 		anim = GetComponent<Animator> ();
+		AudioSource [] audio = GetComponents<AudioSource> ();
+		shooting = audio [0];
+		running = audio [1];
 	}
 	
 	// Update is called once per frame
@@ -23,7 +28,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		var x = Input.GetAxis ("Horizontal");
 		var y = Input.GetAxis ("Vertical");
-			
+
 		Walk (y, x);
 	}
 
@@ -33,7 +38,14 @@ public class PlayerController : MonoBehaviour {
 		if (fire && Time.time > nextFire) {
 			nextFire = Time.time + fireRate;
 			Instantiate (shot, shotSpawn.position, shotSpawn.rotation);
-			GetComponent<AudioSource>().Play ();
+			shooting.Play ();
+		}
+
+		if (Input.GetButtonDown ("Horizontal") || Input.GetButtonDown ("Vertical")) {
+			running.Play ();
+		}
+		else if(!(Input.GetButton ("Horizontal") || Input.GetButton ("Vertical")) && running.isPlaying){
+			running.Pause ();
 		}
 	}
 
@@ -41,21 +53,21 @@ public class PlayerController : MonoBehaviour {
 	{
 		anim.speed = 0.9f;
 		anim.SetFloat ("VelY", y);
-		if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) {
+		if (Input.GetKey(KeyCode.W)) {
 			transform.Translate (Vector3.forward * speed * Time.deltaTime);
 		}
-		if (Input.GetKey (KeyCode.DownArrow) || Input.GetKey (KeyCode.S)) {
+		if (Input.GetKey (KeyCode.S)) {
 			transform.Translate (-Vector3.forward * speed * Time.deltaTime);
-		}
+		} 
 		Rotate (x);
 	}
 
 	void Rotate(float x){
 		anim.SetFloat ("VelX", x);
-		if (Input.GetKey (KeyCode.LeftArrow) || Input.GetKey (KeyCode.A)) {
+		if (Input.GetKey (KeyCode.A)) {
 			transform.Rotate (Vector3.up, -turnSpeed * Time.deltaTime);
 		}
-		if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.D)) {
+		if (Input.GetKey (KeyCode.D)) {
 			transform.Rotate (Vector3.up, turnSpeed * Time.deltaTime);
 		}
 	}

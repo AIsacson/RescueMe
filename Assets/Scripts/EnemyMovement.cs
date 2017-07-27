@@ -24,15 +24,15 @@ public class EnemyMovement : MonoBehaviour {
 	void Update () {
 
 		if (alive) {
-			Vector3 randomPos = Random.insideUnitSphere * 20f;
+			Vector3 randomPos = Random.insideUnitSphere * 30f;
 			NavMeshHit navHit;
-			NavMesh.SamplePosition (transform.position + randomPos, out navHit, 20f, NavMesh.AllAreas);
+			NavMesh.SamplePosition (transform.position + randomPos, out navHit, 10f, NavMesh.AllAreas);
 			nav.SetDestination (navHit.position);
 			anim.SetTrigger ("PlayerGone");
 
 			if (Vector3.Distance (player.transform.position, enemy.transform.position) < 20f) {
-				nav.speed = 4.5f;
-				anim.speed = 2f;
+				nav.speed = 4f;
+				anim.speed = 2.3f;
 				nav.SetDestination (player.transform.position);
 				anim.SetTrigger ("PlayerSpotted");
 			}
