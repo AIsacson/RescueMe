@@ -1,10 +1,13 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
 public class PlayerPushButton : MonoBehaviour {
 
 	public Text message;
+	public Transform spawnShip;
+	public GameObject ship;
 
 	GameObject cPanel;
 	GameObject player;
@@ -21,7 +24,7 @@ public class PlayerPushButton : MonoBehaviour {
 	void Update () {
 		if (Vector3.Distance (player.transform.position, cPanel.transform.position) < 1.5f) {
 			message.text = "Send SOS message, press [E]";
-			if (Input.GetKey (KeyCode.E)) {
+			if (Input.GetButton ("Push")) {
 				anim.SetBool ("PushedButton", true);
 				Rescue ();
 			}
@@ -34,5 +37,12 @@ public class PlayerPushButton : MonoBehaviour {
 
 	void Rescue(){
 		message.text = "Rescue on the way, get out of there!";
+		Invoke ("ShipSpawn", 5);
+	}
+
+	void ShipSpawn(){
+		if (GameObject.FindGameObjectsWithTag ("Ship").Length <= 0) {
+			Instantiate (ship, spawnShip.position, spawnShip.rotation);
+		}
 	}
 }
