@@ -12,15 +12,17 @@ public class PlayerHealth : MonoBehaviour {
 	Color mediumHealth = Color.yellow;
 	Color lowHealth = Color.red;
 	Animator anim;
-	PlayerController playerMovement;
+	PlayerController player;
 	bool isDead;
 	bool damaged;
+	GameOverMenuController gameOver;
 
 	void Awake(){
 		anim = GetComponent<Animator> ();
-		playerMovement = GetComponent<PlayerController> ();
+		player = GetComponent<PlayerController> ();
 
 		currentHealth = startingHealth;
+		gameOver = FindObjectOfType<GameOverMenuController> ();
 	}
 	
 	// Update is called once per frame
@@ -37,6 +39,7 @@ public class PlayerHealth : MonoBehaviour {
 		damaged = true;
 
 		currentHealth -= amount;
+		player.gettingHit.Play ();
 
 		SetHealthUI ();
 
@@ -53,7 +56,10 @@ public class PlayerHealth : MonoBehaviour {
 
 		anim.SetTrigger ("PlayerDeath");
 
-		playerMovement.enabled = false;
+		player.enabled = false;
+		gameOver.GameOver ();
+		player.running.Stop ();
+		player.dying.Play ();
 	}
 
 	void SetHealthUI(){

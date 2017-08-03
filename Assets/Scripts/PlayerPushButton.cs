@@ -1,48 +1,34 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
 public class PlayerPushButton : MonoBehaviour {
 
 	public Text message;
-	public Transform spawnShip;
-	public GameObject ship;
+	public GameObject player;
 
-	GameObject cPanel;
-	GameObject player;
-	Animator anim;
+	PlayerController playerMovement;
+	GameController control;
 
 	void Awake () {
-		anim = GetComponent<Animator> ();
-		player = GameObject.FindGameObjectWithTag ("Player");
-		cPanel = GameObject.FindGameObjectWithTag ("ControlPanel");
 		message.text = "";
+		playerMovement = player.GetComponent<PlayerController>();
+		control = FindObjectOfType<GameController> ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		if (Vector3.Distance (player.transform.position, cPanel.transform.position) < 1.5f) {
+		if (Vector3.Distance (player.transform.position, control.cPanel.transform.position) < 2f) {
 			message.text = "Send SOS message, press [E]";
 			if (Input.GetButton ("Push")) {
-				anim.SetBool ("PushedButton", true);
-				Rescue ();
+				playerMovement.PushButton ();
+				message.text = "Rescue on the way, find the rescueship!";
+				control.ShipSpawn ();
 			}
 		}
 		else {
-			anim.SetBool ("PushedButton", false);
+			playerMovement.Recover ();
 			message.text = "";
-		}
-	}
-
-	void Rescue(){
-		message.text = "Rescue on the way, get out of there!";
-		Invoke ("ShipSpawn", 5);
-	}
-
-	void ShipSpawn(){
-		if (GameObject.FindGameObjectsWithTag ("Ship").Length <= 0) {
-			Instantiate (ship, spawnShip.position, spawnShip.rotation);
 		}
 	}
 }

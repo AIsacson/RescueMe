@@ -6,12 +6,13 @@ public class EnemyMovement : MonoBehaviour {
 	GameObject player;
 	NavMeshAgent nav;
 	PlayerHealth playerHP;
-	public GameObject enemy;
-
+	EnemyAttack enemyScript;
+	AudioSource dying;
 	Animator anim;
 
 	public bool alive = true;
-	public int lives = 4;
+	public int lives = 3;
+	public GameObject enemy;
 
 
 	void Awake () {
@@ -19,6 +20,9 @@ public class EnemyMovement : MonoBehaviour {
 		playerHP = player.GetComponent<PlayerHealth> ();
 		anim = this.transform.GetComponent<Animator> ();
 		nav = GetComponent<NavMeshAgent> ();
+		enemyScript = FindObjectOfType<EnemyAttack> ();
+		AudioSource [] audio = GetComponents<AudioSource> ();
+		dying = audio [2];
 	}
 
 	void Update () {
@@ -31,7 +35,7 @@ public class EnemyMovement : MonoBehaviour {
 			anim.SetTrigger ("PlayerGone");
 
 			if (Vector3.Distance (player.transform.position, enemy.transform.position) < 20f) {
-				nav.speed = 4f;
+				nav.speed = 5.5f;
 				anim.speed = 2.3f;
 				nav.SetDestination (player.transform.position);
 				anim.SetTrigger ("PlayerSpotted");
@@ -62,11 +66,13 @@ public class EnemyMovement : MonoBehaviour {
 		anim.SetTrigger ("EnemyDead");
 		nav.enabled = false;
 		alive = false;
-		Destroy (gameObj, 10.0f);
+		dying.Play ();
+		Destroy (gameObj, 20f);
 	}
 
 	void GetHit(){
 		anim.SetTrigger ("EnemyHit");
+		enemyScript.gettingHit.Play ();
 	}
 
 	void PlayerDies(){

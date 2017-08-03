@@ -46,20 +46,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\SMC Pack 1\Demo\Files\V_SMC_Camera.cs" />
-     <Compile Include="Assets\SMC Pack 1\Demo\Files\V_SMC_Handler.cs" />
-     <Compile Include="Assets\SMC Pack 1\Demo\Files\V_Text.cs" />
+     <Compile Include="Assets\ParticleEffects\Shared\Scripts\DecalDestroyer.cs" />
+     <Compile Include="Assets\ParticleEffects\Shared\Scripts\GunAim.cs" />
+     <Compile Include="Assets\ParticleEffects\Shared\Scripts\GunShoot.cs" />
+     <Compile Include="Assets\ParticleEffects\Shared\Scripts\ParticleExamples.cs" />
+     <Compile Include="Assets\ParticleEffects\Shared\Scripts\ParticleMenu.cs" />
      <Compile Include="Assets\Scripts\Bolt.cs" />
+     <Compile Include="Assets\Scripts\BossAttack.cs" />
+     <Compile Include="Assets\Scripts\BossController.cs" />
      <Compile Include="Assets\Scripts\BoundaryControl.cs" />
      <Compile Include="Assets\Scripts\CameraControl.cs" />
+     <Compile Include="Assets\Scripts\EndGameController.cs" />
      <Compile Include="Assets\Scripts\EnemyAttack.cs" />
-     <Compile Include="Assets\Scripts\EnemyHealth.cs" />
-     <Compile Include="Assets\Scripts\EnemyManager.cs" />
      <Compile Include="Assets\Scripts\EnemyMovement.cs" />
+     <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\GameOverMenuController.cs" />
+     <Compile Include="Assets\Scripts\MenuController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PlayerHealth.cs" />
+     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\PlayerPushButton.cs" />
-     <None Include="Assets\Modern Russian Assault Rifle\Notes.txt" />
+     <Compile Include="Assets\Scripts\ShipController.cs" />
+     <None Include="Assets\ParticleEffects\Shared\Shaders\SurfaceShader_VC.shader" />
+     <None Include="Assets\Standard Assets\Effects\Bloom\Resources\Bloom.shader" />
+     <None Include="Assets\Rifle\Notes.txt" />
+     <None Include="Assets\Standard Assets\Effects\Bloom\Resources\Bloom.cginc" />
+     <None Include="Assets\Standard Assets\Effects\LensAberrations\Resources\LensAberrations.shader" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
@@ -78,6 +90,10 @@
  <Reference Include="UnityEngine.VR">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{CBBEABF1-33E7-8497-77CE-D996439D4778}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

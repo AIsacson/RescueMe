@@ -1,26 +1,35 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
 	public float speed;
 	public float turnSpeed;
-	public GameObject shot;
-	public Transform shotSpawn;
 	public float fireRate;
-	AudioSource running;
-	AudioSource shooting;
+	public Text ammo;
+	public int bullets = 15;
+	public AudioSource running;
+	public AudioSource gettingHit;
+	public AudioSource dying;
 
 	Animator anim;
 	float nextFire;
+	AudioSource shooting;
+	GameController control;
+
 
 	// Use this for initialization
 	void Start () 
 	{
 		anim = GetComponent<Animator> ();
+		control = FindObjectOfType<GameController> ();
 		AudioSource [] audio = GetComponents<AudioSource> ();
 		shooting = audio [0];
 		running = audio [1];
+		dying = audio [2];
+		gettingHit = audio [3];
+		ammo.text = bullets.ToString() + "/15";
 	}
 	
 	// Update is called once per frame
@@ -34,11 +43,20 @@ public class PlayerController : MonoBehaviour {
 
 	void Update(){
 		bool fire = Input.GetButtonDown ("Fire1");
+		bool reload = Input.GetButtonDown ("Reload");
 		anim.SetBool ("Fire", fire);
-		if (fire && Time.time > nextFire) {
+		anim.SetBool ("Reload", reload);
+		if ((bullets > 0) && fire && Time.time > nextFire && (bullets != 0)) {
 			nextFire = Time.time + fireRate;
-			Instantiate (shot, shotSpawn.position, shotSpawn.rotation);
+			//Instantiate (shot, shotSpawn.position, shotSpawn.rotation);
+			control.BulletSpawn();
 			shooting.Play ();
+			bullets--;
+			ammo.text = bullets.ToString() + "/15";
+		}
+
+		if (reload) {
+			Invoke ("Reload", 3.5f);
 		}
 
 		if (Input.GetButtonDown ("Horizontal") || Input.GetButtonDown ("Vertical")) {
@@ -70,5 +88,19 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.D)) {
 			transform.Rotate (Vector3.up, turnSpeed * Time.deltaTime);
 		}
+	}
+
+	void Reload(){
+		bullets = 15;
+		anim.speed = 0.9f;
+		ammo.text = bullets.ToString() + "/15";
+	}
+
+	public void PushButton (){
+			anim.SetBool ("PushButton", true);
+	}
+
+	public void Recover(){
+		anim.SetBool ("PushButton", false);
 	}
 }
